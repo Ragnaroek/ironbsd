@@ -2,8 +2,8 @@ build-ironbsd:
     cd ../../stand/uefi && just build
 
 setup-uefi-boot: build-ironbsd
-    mkdir -p root/efi/boot
-    cp ../../stand/uefi/target/x86_64-unknown-uefi/release/loader.efi ./root/efi/boot/boot64x.efi
+    mkdir -p root/EFI/BOOT
+    cp ../../stand/uefi/target/x86_64-unknown-uefi/release/loader.efi ./root/EFI/BOOT/bootx64.efi
 
 start: setup-uefi-boot
     qemu-system-x86_64 \
