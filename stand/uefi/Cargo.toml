@@ -1,0 +1,14 @@
+[package]
+name = "uefi_loader"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "loader"
+path = "main.rs"
+
+[build]
+target = "x86_64-unknown-uefi"
+
+[target.x86_64-unknown-uefi]
+linker = "x86_64-elf-ld"  # Use the UEFI-aware linker
