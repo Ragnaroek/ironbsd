@@ -12,4 +12,21 @@ start: setup-uefi-boot
         -drive if=pflash,format=raw,file=OVMF_CODE.4m.fd \
         -drive format=raw,file=fat:rw:root \
         -net none \
-        -nographic
+        -nographic \
+        -serial file:serial.log
+
+#-gdb tcp::1234 -S
+
+setup-uefi-boot-dep: build-ironbsd
+    mkdir -p root/EFI/BOOT
+    cp ../../stand/uefi_dep/target/x86_64-unknown-uefi/release/loader.efi ./root/EFI/BOOT/bootx64.efi
+
+start-dep: setup-uefi-boot-dep
+    qemu-system-x86_64 \
+        -enable-kvm \
+        -m 4G \
+        -drive if=pflash,format=raw,file=OVMF_CODE.4m.fd \
+        -drive format=raw,file=fat:rw:root \
+        -net none \
+        -nographic \
+        -serial file:serial.log
